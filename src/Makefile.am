@@ -74,4 +74,6 @@ ratpoison_SOURCES	= actions.c		\
 			window.c		\
 			window.h		\
 			xinerama.c		\
-			xinerama.h
+			xinerama.h \
+      ewmh.c			\
+			ewmh.h

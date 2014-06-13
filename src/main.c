@@ -734,9 +734,12 @@ main (int argc, char *argv[])
   PRINT_DEBUG (("_NET_WM_PID = %ld\n", _net_wm_pid));
   _net_supported = XInternAtom(dpy, "_NET_SUPPORTED", False);
   PRINT_DEBUG (("_NET_SUPPORTED = %ld\n", _net_supported));
+  _net_active_window = XInternAtom(dpy, "_NET_ACTIVE_WINDOW", False);
   _net_wm_window_type = XInternAtom(dpy, "_NET_WM_WINDOW_TYPE", False);
   _net_wm_window_type_dialog = XInternAtom(dpy, "_NET_WM_WINDOW_TYPE_DIALOG", False);
   _net_wm_name = XInternAtom(dpy, "_NET_WM_NAME", False);
+  _net_supporting_wm_check = XInternAtom (dpy, "_NET_SUPPORTING_WM_CHECK", False);
+  utf8_string = XInternAtom(dpy, "UTF8_STRING", False);
 
   /* Setup signal handlers. */
   XSetErrorHandler(handler);
@@ -756,6 +759,7 @@ main (int argc, char *argv[])
   init_window_stuff ();
   init_xinerama ();
   init_screens (screen_arg, screen_num);
+  init_ewmh ();
 
   init_frame_lists ();
   update_modifier_map ();

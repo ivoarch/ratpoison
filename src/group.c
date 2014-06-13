@@ -31,6 +31,10 @@ set_current_group_1 (rp_group *g)
   rp_current_group = g;
   if (g)
     g->last_access = counter++;
+
+  ewmh_set_number_of_desktops ();
+  ewmh_set_current_desktop (g->number);
+  ewmh_set_client_list ();
 }
 
 void
@@ -46,6 +50,8 @@ init_groups(void)
   g = group_new (numset_request (group_numset), DEFAULT_GROUP_NAME);
   set_current_group_1 (g);
   list_add_tail (&g->node, &rp_groups);
+
+  ewmh_set_number_of_desktops ();
 }
 
 void
@@ -346,6 +352,8 @@ group_insert_window (struct list_head *h, rp_window_elem *w)
     }
 
   list_add_tail(&w->node, h);
+  ewmh_set_wm_desktop (w->win);
+  ewmh_set_client_list ();
 }
 
 static int
@@ -480,6 +488,7 @@ groups_del_window (rp_window *win)
     {
       group_del_window (cur, win);
     }
+  ewmh_set_client_list ();
 }
 
 rp_window *
@@ -661,6 +670,7 @@ group_delete_group (rp_group *g)
 
       list_del (&(g->node));
       group_free (g);
+      ewmh_set_number_of_desktops ();
       return GROUP_DELETE_GROUP_OK;
     }
   else

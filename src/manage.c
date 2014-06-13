@@ -714,17 +714,8 @@ maximize_normal (rp_window *win)
   /* Set the window's border */
   win->border = defaults.window_border_width;
 
-  /* Honour the window's maximum size */
-  if (win->hints->flags & PMaxSize)
-    {
-      maxx = win->hints->max_width;
-      maxy = win->hints->max_height;
-    }
-  else
-    {
-      maxx = frame->width - win->border * 2;
-      maxy = frame->height - win->border * 2;
-    }
+  maxx = frame->width - win->border * 2;
+  maxy = frame->height - win->border * 2;
 
   /* Honour the window's aspect ratio. */
   PRINT_DEBUG (("aspect: %ld\n", win->hints->flags & PAspect));
@@ -753,32 +744,6 @@ maximize_normal (rp_window *win)
 
       if (maxx > frame->width) maxx = frame->width - win->border * 2;
       if (maxy > frame->height) maxy = frame->height - win->border * 2;
-    }
-
-  /* Make sure we maximize to the nearest Resize Increment specified
-     by the window */
-  if (win->hints->flags & PResizeInc)
-    {
-      int amount;
-      int delta;
-
-      if (win->hints->width_inc)
-        {
-          amount = maxx - win->width;
-          delta = amount % win->hints->width_inc;
-          if (amount < 0 && delta) amount -= win->hints->width_inc;
-          amount -= delta;
-          maxx = amount + win->width;
-        }
-
-      if (win->hints->height_inc)
-        {
-          amount = maxy - win->height;
-          delta = amount % win->hints->height_inc;
-          if (amount < 0 && delta) amount -= win->hints->height_inc;
-          amount -= delta;
-          maxy = amount + win->height;
-        }
     }
 
   PRINT_DEBUG (("maxsize: %d %d\n", maxx, maxy));

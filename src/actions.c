@@ -229,9 +229,9 @@ init_user_commands(void)
                "Key: ", arg_KEY);
   add_command ("exec",          cmd_exec,       1, 1, 1,
                "/bin/sh -c ", arg_SHELLCMD);
-  add_command ("execa",		cmd_execa,	1, 1, 1, 
+  add_command ("execa",		cmd_execa,	1, 1, 1,
 	       "/bin/sh -c ", arg_SHELLCMD);
-  add_command ("execf",		cmd_execf,	2, 2, 2, 
+  add_command ("execf",		cmd_execf,	2, 2, 2,
 	       "frame to execute in:", arg_FRAME,
 	       "/bin/sh -c ", arg_SHELLCMD);
   add_command ("fdump",         cmd_fdump,      1, 0, 0,
@@ -239,7 +239,7 @@ init_user_commands(void)
   add_command ("focus",         cmd_next_frame, 0, 0, 0);
   add_command ("focusprev",     cmd_prev_frame, 0, 0, 0);
   add_command ("focusdown",     cmd_focusdown,  0, 0, 0);
-  add_command ("exchangeup",	cmd_exchangeup, 0, 0, 0);	
+  add_command ("exchangeup",	cmd_exchangeup, 0, 0, 0);
   add_command ("exchangedown",	cmd_exchangedown, 0, 0, 0);
   add_command ("exchangeleft",	cmd_exchangeleft, 0, 0, 0);
   add_command ("exchangeright",	cmd_exchangeright, 0, 0, 0);
@@ -5560,8 +5560,8 @@ cmd_sfdump (int interactively UNUSED, struct cmdarg **args UNUSED)
           sbuf_concat (dump, screen_suffix);
           free (frameset);
         }
-      sbuf_chop (dump);
     }
+  sbuf_chop (dump);
   ret = cmdret_new (RET_SUCCESS, "%s", sbuf_get (dump));
   sbuf_free (dump);
   return ret;
